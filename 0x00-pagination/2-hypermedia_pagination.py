@@ -55,21 +55,11 @@ class Server:
         Args:
             page: the page number
             page_size: the number of rows per page
-        Returns:
-            A dictionary of the following form
-            {
-                'page_size': the length of the returned dataset page,
-                'page': the current page number,
-                'data': the dataset page (equivalent to return from previous task),
-                'next_page': number of the next page, None if no next page,
-                'prev_page': number of the previous page, None if no previous page,
-                'total_pages': the total number of pages in the dataset as an integer,
-            }
         """
         page_data = self.get_page(page, page_size)
         start, end = index_range(page, page_size)
         total_pages = math.ceil(len(self.__dataset) / page_size)
-        page_info = {
+        page_information = {
             'page_size': len(page_data),
             'page': page,
             'data': page_data,
@@ -77,4 +67,4 @@ class Server:
             'prev_page': page - 1 if start > 0 else None,
             'total_pages': total_pages,
         }
-        return page_info
+        return page_information
