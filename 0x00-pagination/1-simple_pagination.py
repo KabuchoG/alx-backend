@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Simple pagination sample.
-"""
+"""task 1"""
 import csv
+import math
 from typing import List, Tuple
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
-    """Retrieves the index range from a given page and page size.
+    """returns a tuple of size two containing a start index and an end index
     """
     start = (page - 1) * page_size
-    end = start * page_size
+    end = page * page_size
     return (start, end)
 
 
@@ -19,8 +19,6 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
-        """Initializes a new Server instance.
-        """
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -35,12 +33,16 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """Retrieves a page of data.
+        """Get a page of the dataset
+        Args:
+            page: the page number
+            page_size: the number of rows per page
+        Returns:
+            A list of rows
         """
         assert type(page) == int and type(page_size) == int
         assert page > 0 and page_size > 0
         start, end = index_range(page, page_size)
-        data = self.dataset()
-        if start > len(data):
+        if start >= len(self.dataset()):
             return []
-        return data[start:end]
+        return self.dataset()[start:end]
