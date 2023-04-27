@@ -2,7 +2,7 @@
 """ Basic Flask app, Basic Babel setup, Get locale from request,
     Parametrize templates, Force locale with URL parameter
 """
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
@@ -20,11 +20,7 @@ class Config:
 app.config.from_object(Config)
 
 
-@app.route('/')
-def index():
-    """ render index.html """
-    return render_template('1-index.html')
-
-
-if __name__ == "__main__":
-    app.run(app)
+@babel.localeselector
+def get_locale():
+    """ get locale from request """
+    return request.args.get('locale')
