@@ -24,3 +24,9 @@ app.config.from_object(Config)
 def get_locale():
     """ get locale from request """
     return request.args.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@app.route('/')
+def index():
+    """ render index.html """
+    return render_template('2-index.html')
